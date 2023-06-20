@@ -6,7 +6,7 @@ const Layout = ({ children }) => {
   return (
     <Flex>
       <Sidebar />
-      <Box p={20} style={{ overflow: "scroll", height: "100vh" }}>
+      <Box className="bg-gray-100" p={20} style={{ overflow: "scroll", height: "100vh" }}>
         {children}
       </Box>
     </Flex>

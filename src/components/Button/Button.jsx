@@ -6,45 +6,35 @@ function Button(props) {
     size = "",
     block = false,
     outlined = false,
-    secondary = false,
-    success = false,
     danger = false,
+    secondary = false,
   } = props;
 
   const buttonClasses = useMemo(() => {
     let defaultClasses =
-      "rounded-xl font-title text-white flex flex-row items-center justify-center";
+      "rounded-xl font-custom flex flex-row items-center justify-center";
 
     if (block) {
       defaultClasses += " block w-full bg-yellow-500 ";
     }
 
     if (size === "sm") {
-      defaultClasses += " text-sm h-8 px-2 ";
+      defaultClasses += " text-sm h-8 px-2  text-white";
     } else {
       defaultClasses += " h-12 px-4 ";
     }
 
     if (outlined) {
+      if (danger) {
+        defaultClasses += " border-red-500 border text-[#db1b1b]";
+      }
       if (secondary) {
-        defaultClasses += " border-gray-400 border text-gray-600";
-      } else if (success) {
-        defaultClasses += " border-green-600 border text-green-500";
-      } else if (danger) {
-        defaultClasses += " border-red-500 border text-red-500";
-      } else defaultClasses += " primary-self-text border-blue-400 border ";
-    } else {
-      if (secondary) {
-        defaultClasses += " bg-gray-400 ";
-      } else if (success) {
-        defaultClasses += " bg-green-600 ";
-      } else if (danger) {
-        defaultClasses += " bg-red-500 ";
-      } else defaultClasses += " primary-background-color ";
+        defaultClasses += "border-gray-700 border-2 text-[#817070]"
+      }
     }
 
     return defaultClasses;
-  }, [block, danger, outlined, secondary, size, success]);
+  }, [block, danger, outlined, size, secondary]);
 
   return (
     <button
@@ -52,6 +42,9 @@ function Button(props) {
       className={buttonClasses}
       {...props}
       block={block.toString()}
+      outlined={outlined.toString()}
+      danger={danger.toString()}
+      secondary={secondary.toString()}
     >
       {children}
     </button>
