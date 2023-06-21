@@ -64,8 +64,8 @@ const OrderTable = () => {
       <td>{element.customerName}</td>
       <td>{element.status}</td>
       <td>{element.amount}</td>
-      <td>
-        <BsThreeDots />
+      <td className="flex justify-center items-center">
+        <BsThreeDots  className=" cursor-pointer text-lg"/>
       </td>
     </tr>
   ));
@@ -85,8 +85,8 @@ const OrderTable = () => {
           horizontalSpacing="sm"
           verticalSpacing="md"
         >
-          <thead className="bg-slate-200 rounded-lg">{ths}</thead>
-          <tbody>{rows}</tbody>
+          <thead className="bg-slate-200 rounded-lg font-custom text-2xl select-none">{ths}</thead>
+          <tbody className=" font-custom select-none">{rows}</tbody>
         </Table>
       </div>
     </div>

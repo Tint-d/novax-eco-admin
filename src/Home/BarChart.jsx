@@ -78,7 +78,7 @@ const BarChart = () => {
   return (
     <div className="flex gap-5 mx-16">
       {/* Left Chart  */}
-      <div className="w-6/12 bg-white rounded-lg p-5">
+      <div className="w-full bg-white rounded-lg p-5">
         <div className="flex flex-col font-bold gap-3">
           <p>Total Revenue</p>
           <div className="flex items-center gap-5">
@@ -97,7 +97,7 @@ const BarChart = () => {
       </div>
 
       {/* Right Chart  */}
-      <div className="w-6/12 bg-white rounded-lg flex flex-col justify-around px-5">
+      <div className="w-full bg-white rounded-lg flex flex-col justify-around px-5">
         <p className="font-bold text-xl">Most Sold Items</p>
         {/* Sold progress  */}
         <div className="flex flex-col gap-5">

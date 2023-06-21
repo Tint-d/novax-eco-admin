@@ -35,11 +35,11 @@ const PieChart = ({ item }) => {
   const { classes } = useStyles();
 
   return (
-    <div className="flex w-3/12 justify-around bg-white my-5 rounded-lg px-5">
+    <div className="flex  justify-around bg-white my-5 rounded-lg px-3">
       <div className="flex w-8/12 flex-col justify-around py-3">
-        <Text className=" font-semibold text-gray-700">{item?.title}</Text>
-        <Text className="font-bold text-2xl">{item?.amount}</Text>
-        <Text className=" text-gray-600">{item?.text}</Text>
+        <p className=" font-semibold text-gray-700">{item?.title}</p>
+        <p className="font-bold text-xl">{item?.amount}</p>
+        <p className=" text-gray-600">{item?.text}</p>
       </div>
 
       <Flex

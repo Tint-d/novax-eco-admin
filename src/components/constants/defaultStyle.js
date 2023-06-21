@@ -5,6 +5,9 @@ export const defaultInputStyle =
 export const defaultSearchStyle =
   defaultStyle + "bg-gray-100 h-4 flex-1 text-sm";
 
+// default sidebar 
+export const sidebarStyle = "py-2 px-4 flex items-center gap-3 hover:bg-[rgb(243,195,0)] hover:text-white duration-300 mx-5 rounded-lg transition"
+
 // Default Table Styles
 export const defaultTdStyle =
   "text-sm sm:text-left text-default-color font-title flex flex-wrap flex-row flex-1 whitespace-nowrap text-ellipsis overflow-hidden mb-1";
