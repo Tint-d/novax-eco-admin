@@ -21,6 +21,7 @@ import { useForm } from "@mantine/form";
 import { useLoginUserMutation } from "../../services/api/authApi";
 import { useDispatch } from "react-redux";
 import { addUser } from "../../services/feature/authSlice";
+import "../../index.css";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ const Login = () => {
     },
   });
   return (
-    <Container size={420} my={40}>
+    <Container size={420} my={40} className=" font-custom">
       <form
         onSubmit={form.onSubmit(async (values) => {
           const res = await loginUser(values);
