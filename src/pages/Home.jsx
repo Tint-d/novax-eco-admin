@@ -1,42 +1,51 @@
 import React from "react";
 import Layout from "../Layout";
-import Test from "../components/Test";
+import Test from "../Home/PieChart";
 import { MdOutlineDashboard } from "react-icons/md";
-import { Flex } from "@mantine/core";
 import { useSelector } from "react-redux";
+import BarChart from "../Home/BarChart";
+import OrderTable from "../Home/OrderTable";
 
 const Home = () => {
   const dd = useSelector((state) => console.log(state));
   const data = [
     {
-      title: "Title One",
+      title: "Todays Sales",
       icon: MdOutlineDashboard,
       value: 10,
       color: "yellow",
-      amount: 250,
+      amount: '$20.6K',
+      text:'We have 321 items',
+
     },
     {
-      title: "Title Two",
+      title: "Todays Revenue",
       icon: MdOutlineDashboard,
       value: 60,
-      color: "red",
-      amount: 1000,
+      color: "green",
+      amount: '$20.6K',
+      text:'We have 321 items',
+
     },
     {
-      title: "Title Three",
+      title: "In Escrow",
       icon: MdOutlineDashboard,
       value: 90,
-      color: "cyan",
-      amount: 1250,
+      color: "purple",
+      amount: '$20.6K',
+      text:'Avaiable to payout',
+
     },
   ];
   return (
     <Layout>
-      <Flex wrap={"wrap"} gap="md">
+      <div className="  flex justify-around">
         {data?.map((item) => (
           <Test key={item.title} item={item} />
         ))}
-      </Flex>
+      </div>
+      <BarChart/>
+      <OrderTable/>
     </Layout>
   );
 };
