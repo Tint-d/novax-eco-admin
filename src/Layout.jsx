@@ -1,15 +1,16 @@
-import { Box, Flex } from "@mantine/core";
 import React from "react";
 import Sidebar from "./components/Sidebar";
 
 const Layout = ({ children }) => {
   return (
-    <Flex>
-      <Sidebar />
-      <Box className="bg-gray-100" p={20} style={{ overflow: "scroll", height: "100vh" }}>
+    <div className="flex ">
+      <div className="w-2/12">
+        <Sidebar />
+      </div>
+      <div className="w-10/12 h-[100vh] overflow-scroll bg-zinc-100">
         {children}
-      </Box>
-    </Flex>
+      </div>
+    </div>
   );
 };
 
