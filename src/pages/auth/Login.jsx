@@ -6,7 +6,7 @@ import {
   Title,
   Text,
   Group,
-  Button,
+  // Button,
   Flex,
 } from "@mantine/core";
 
@@ -21,6 +21,8 @@ import InputText from "./components/InputText";
 import InputPassword from "./components/InputPassword";
 
 import { IconBrandGoogle } from "@tabler/icons-react";
+import Button from "../../components/Button/Button";
+import { defaultCheckoutStyle } from "../../components/constants/defaultStyle";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -44,9 +46,9 @@ const Login = () => {
       <Flex align={"center"} justify={"center"} className="w-full h-full">
         <form
           onSubmit={form.onSubmit(async (values) => {
-            // console.log(values)
-            const res = await loginUser(values);
-            console.log(res);
+            console.log(values);
+            // const res = await loginUser(values);
+            // console.log(res);
             // if (res?.data?.token) {
             //   dispatch(
             //     addUser({ user: res?.data?.user, token: res?.data?.token })
@@ -59,18 +61,17 @@ const Login = () => {
             withBorder
             p={60}
             mt={30}
-            radius="md"
+            radius="lg"
             sx={{ width: 450 }}
-            className="shadow-2xl"
+            className="shadow-xl"
           >
             <Title
               align="center"
               sx={{
-                fontFamily: "Gilda Display,serif",
                 fontWeight: 700,
                 color: "#2E2A2A",
               }}
-              className="sm:text-4xl font-bold text-2xl sm:mt-0 mt-10 font-josefin"
+              className="sm:text-4xl font-bold text-2xl sm:mt-0 mt-10"
             >
               Welcome back
             </Title>
@@ -78,7 +79,7 @@ const Login = () => {
               size="sm"
               align="center"
               mt={5}
-              className="font-josefin text-[14px] font-medium text-[#645D5D]"
+              className=" text-[14px] font-medium text-[#645D5D]"
             >
               Welcome back! Please enter your details
             </Text>
@@ -103,13 +104,8 @@ const Login = () => {
             <Group position="apart" mt="md">
               <Checkbox
                 label="Agree the policy"
-                sx={{
-                  ["& .mantine-Checkbox-input:checked"]: {
-                    backgroundColor: "#FFE500",
-                    borderColor: "#FFE500",
-                  },
-                }}
-                classNames={{ label: "text-[#5A5959] font-medium" }}
+                sx={defaultCheckoutStyle}
+                // className={{  "text-[#5A5959] font-medium" }}
               />
               <Anchor
                 component="button"
@@ -120,24 +116,18 @@ const Login = () => {
                 Forgot password?
               </Anchor>
             </Group>
-            <button
-              type="submit"
-              className=" h-[50px] bg-[#FFD93D] border border-[#FFE500] text-white font-medium text-lg w-full rounded-xl mt-3"
-            >
-              Sign In
-            </button>
-            <Button
-              leftIcon={<IconBrandGoogle />}
-              classNames={{
-                root: "bg-white border border-[#242424] h-[50px] my-3 rounded-xl hover:border-[#FFD93D] hover:bg-white ",
-                inner:
-                  "text-[#131212] hover:text-[#FFD93D] text-lg font-medium",
-              }}
-              fullWidth
-            >
-              Sign in with Google
-            </Button>
-            <Text className="text-sm text-[#4B4949] text-center">
+            <div className=" my-3 flex flex-col gap-3">
+              <Button
+                type="submit"
+                block={1}
+              >
+                <span className=" text-lg">Sign in</span>
+              </Button>
+              <Button outlined={true} secondary={true}>
+                <span className=" text-lg">Sign in with Google</span>
+              </Button>
+            </div>
+            <Text className="text-sm text-[#4B4949] text-center ">
               Don't have an account? &nbsp;
               <Anchor
                 component="button"
@@ -145,7 +135,7 @@ const Login = () => {
                 className="text-[#0946E2]"
                 underline={false}
               >
-                Forgot password?
+                Register
               </Anchor>
             </Text>
           </Paper>

@@ -15,7 +15,7 @@ function Button(props) {
       "rounded-xl font-custom flex flex-row items-center justify-center";
 
     if (block) {
-      defaultClasses += " block w-full bg-yellow-500 ";
+      defaultClasses += " block w-full bg-[#FFD93D] text-white";
     }
 
     if (size === "sm") {
@@ -29,7 +29,7 @@ function Button(props) {
         defaultClasses += " border-red-500 border text-[#db1b1b]";
       }
       if (secondary) {
-        defaultClasses += "border-gray-700 border-2 text-[#817070]"
+        defaultClasses += "border-[#242424] border-2  w-full text-[#131212] hover:border-[#FFD93D] hover:text-[#FFD93D] duration-300 "
       }
     }
 

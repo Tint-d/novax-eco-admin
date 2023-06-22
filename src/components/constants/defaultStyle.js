@@ -20,6 +20,11 @@ export const defaultTdContent =
 export const defaultTdContentTitleStyle =
   "sm:hidden w-1/2 flex flex-row items-center";
 
+export const defaultCheckoutStyle={["& .mantine-Checkbox-input:checked"]: {
+  backgroundColor: "#FFE500",
+  borderColor: "#FFE500",
+}}
+
 export const IconStyle = {
   top: -2,
   position: "relative",
