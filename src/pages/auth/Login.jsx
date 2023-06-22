@@ -22,8 +22,12 @@ import { useForm } from "@mantine/form";
 import { useLoginUserMutation } from "../../services/api/authApi";
 import { useDispatch } from "react-redux";
 import { addUser } from "../../services/feature/authSlice";
+<<<<<<< HEAD
 import AuthLayout from "./components/AuthLayout";
 import InputText from "./components/InputText";
+=======
+import "../../index.css";
+>>>>>>> 75e495483ff6a0da01a4afc3c71346222eab6637
 
 const Login = () => {
   const navigate = useNavigate();
@@ -37,11 +41,25 @@ const Login = () => {
     },
   });
   return (
+<<<<<<< HEAD
     <AuthLayout>
       <Flex
         align={"center"}
         justify={"center"}
         className="relative w-full h-full"
+=======
+    <Container size={420} my={40} className=" font-custom">
+      <form
+        onSubmit={form.onSubmit(async (values) => {
+          const res = await loginUser(values);
+          if (res?.data?.token) {
+            dispatch(
+              addUser({ user: res?.data?.user, token: res?.data?.token })
+            );
+            navigate(paths.home);
+          }
+        })}
+>>>>>>> 75e495483ff6a0da01a4afc3c71346222eab6637
       >
         <form
           onSubmit={form.onSubmit(async (values) => {
