@@ -1,27 +1,26 @@
 import React from "react";
 import {
-  TextInput,
-  PasswordInput,
   Checkbox,
   Anchor,
   Paper,
   Title,
   Text,
-  Container,
   Group,
   Button,
-  Image,
-  Box,
-  Loader,
+  Flex,
 } from "@mantine/core";
-import Logo from "../../assets/logo.jpg";
+
 import { Link, useNavigate } from "react-router-dom";
 import { paths } from "../../routes/paths";
 import { useForm } from "@mantine/form";
 import { useLoginUserMutation } from "../../services/api/authApi";
 import { useDispatch } from "react-redux";
 import { addUser } from "../../services/feature/authSlice";
-import "../../index.css";
+import AuthLayout from "./components/AuthLayout";
+import InputText from "./components/InputText";
+import InputPassword from "./components/InputPassword";
+
+import { IconBrandGoogle } from "@tabler/icons-react";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -30,66 +29,129 @@ const Login = () => {
   console.log(data);
   const form = useForm({
     initialValues: {
-      email: "minthiha12@gmail.com",
-      password: "mth12345",
+      email: "",
+      password: "",
+    },
+    validate: {
+      email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
+      password: (value) =>
+        value.length < 8 ? "password must be at least 8 characters long" : null,
     },
   });
+
   return (
-    <Container size={420} my={40} className=" font-custom">
-      <form
-        onSubmit={form.onSubmit(async (values) => {
-          const res = await loginUser(values);
-          if (res?.data?.token) {
-            dispatch(
-              addUser({ user: res?.data?.user, token: res?.data?.token })
-            );
-            navigate(paths.home);
-          }
-        })}
-      >
-        <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-          <Image src={Logo} width={120} mx={"auto"} />
-          <Box mb={"md"}>
-            <Text align="center" size={"lg"}>
-              Login Account!
+    <AuthLayout>
+      <Flex align={"center"} justify={"center"} className="w-full h-full">
+        <form
+          onSubmit={form.onSubmit(async (values) => {
+            // console.log(values)
+            const res = await loginUser(values);
+            console.log(res);
+            // if (res?.data?.token) {
+            //   dispatch(
+            //     addUser({ user: res?.data?.user, token: res?.data?.token })
+            //   );
+            //   navigate(paths.home);
+            // }
+          })}
+        >
+          <Paper
+            withBorder
+            p={60}
+            mt={30}
+            radius="md"
+            sx={{ width: 450 }}
+            className="shadow-2xl"
+          >
+            <Title
+              align="center"
+              sx={{
+                fontFamily: "Gilda Display,serif",
+                fontWeight: 700,
+                color: "#2E2A2A",
+              }}
+              className="sm:text-4xl font-bold text-2xl sm:mt-0 mt-10 font-josefin"
+            >
+              Welcome back
+            </Title>
+            <Text
+              size="sm"
+              align="center"
+              mt={5}
+              className="font-josefin text-[14px] font-medium text-[#645D5D]"
+            >
+              Welcome back! Please enter your details
             </Text>
-            <Text color="dimmed" size="sm" align="center" mt={5}>
-              Do not have an account yet?
-              <Link to={paths.register}>
-                <Anchor size="sm" component="button">
-                  Create account
-                </Anchor>
-              </Link>
+
+            <Text mb="xs" size={"sm"} color="red">
+              {data?.missing}
             </Text>
-          </Box>
-          <Text mb="xs" size={"sm"} color="red">
-            {data?.missing}
-          </Text>
-          <TextInput
-            label="Email"
-            placeholder="minthiha@gmail.com"
-            required
-            {...form.getInputProps("email")}
-          />
-          <PasswordInput
-            label="Password"
-            placeholder="Your password"
-            required
-            {...form.getInputProps("password")}
-            mt="md"
-          />
-          <Group position="apart" mt="lg">
-            <Checkbox label="Remember me" />
-            <Anchor component="button" size="sm">
-              Forgot password?
-            </Anchor>
-          </Group>
-          <Button disabled={isLoading && true} fullWidth mt="xl" type="submit">
-            {isLoading ? <Loader color="white" size={"xs"} /> : "Sign In"}
-          </Button>
-        </Paper>
-      </form>
-    </Container>
+
+            <InputText
+              form={form}
+              label={"Email"}
+              placeholder={"Enter Your Email"}
+            />
+            {/* <PasswordInput
+              label="Password"
+              placeholder="Your password"
+              required
+              {...form.getInputProps("password")}
+              mt="md"
+            /> */}
+            <InputPassword form={form} />
+            <Group position="apart" mt="md">
+              <Checkbox
+                label="Agree the policy"
+                sx={{
+                  ["& .mantine-Checkbox-input:checked"]: {
+                    backgroundColor: "#FFE500",
+                    borderColor: "#FFE500",
+                  },
+                }}
+                classNames={{ label: "text-[#5A5959] font-medium" }}
+              />
+              <Anchor
+                component="button"
+                size="sm"
+                className="text-[#0946E2]"
+                underline={false}
+              >
+                Forgot password?
+              </Anchor>
+            </Group>
+            <button
+              type="submit"
+              className=" h-[50px] bg-[#FFD93D] border border-[#FFE500] text-white font-medium text-lg w-full rounded-xl mt-3"
+            >
+              Sign In
+            </button>
+            <Button
+              leftIcon={<IconBrandGoogle />}
+              classNames={{
+                root: "bg-white border border-[#242424] h-[50px] my-3 rounded-xl hover:border-[#FFD93D] hover:bg-white ",
+                inner:
+                  "text-[#131212] hover:text-[#FFD93D] text-lg font-medium",
+              }}
+              fullWidth
+            >
+              Sign in with Google
+            </Button>
+            <Text className="text-sm text-[#4B4949] text-center">
+              Don't have an account? &nbsp;
+              <Anchor
+                component="button"
+                size="sm"
+                className="text-[#0946E2]"
+                underline={false}
+              >
+                Forgot password?
+              </Anchor>
+            </Text>
+          </Paper>
+        </form>
+      </Flex>
+    </AuthLayout>
   );
 };
 
