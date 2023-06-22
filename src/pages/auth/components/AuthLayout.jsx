@@ -8,7 +8,10 @@ const AuthLayout = ({ children }) => {
   return (
     <Flex className="h-screen w-full py-10 relative">
       <div className="logo absolute top-0 w-full">
-        <Image src={Logo} width={150} />
+        <div className="img-container w-[120px] overflow-hidden">
+          {" "}
+          <Image src={Logo} />
+        </div>
       </div>
       <div className="min-w-[50%] h-full ">{children}</div>
       <div className="w-[50%] h-full flex justify-center  items-center pr-20">
