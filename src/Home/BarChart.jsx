@@ -109,8 +109,8 @@ const BarChart = () => {
                   <p>{item?.value}%</p>
                 </div>
                 <Progress
-                  size="xl"
-                  sections={[{ value: item?.value, color: "cyan" }]}
+                  size="md"
+                  sections={[{ value: item?.value, color: "rgb(243,195,0)" }]}
                 />
               </div>
             );

@@ -6,7 +6,7 @@ import {
   Title,
   Text,
   Group,
-  Button,
+  // Button,
   Flex,
 } from "@mantine/core";
 
@@ -21,7 +21,9 @@ import InputText from "./components/InputText";
 import InputPassword from "./components/InputPassword";
 
 import { IconBrandGoogle } from "@tabler/icons-react";
+
 import toast, { Toaster } from "react-hot-toast";
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -51,6 +53,7 @@ const Login = () => {
 
   return (
     <AuthLayout>
+
       <Toaster position="bottom-center" />
 
       <form onSubmit={form.onSubmit((values) => onSubmitHandler(values))}>
@@ -90,6 +93,7 @@ const Login = () => {
           <Group position="apart" mt="md">
             <Checkbox
               required
+
               label="Agree the policy"
               sx={{
                 ["& .mantine-Checkbox-input:checked"]: {
@@ -137,6 +141,7 @@ const Login = () => {
           </Text>
         </Paper>
       </form>
+
     </AuthLayout>
   );
 };

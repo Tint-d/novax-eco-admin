@@ -16,7 +16,9 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
-
+.active {
+  @apply transition bg-[rgb(243,195,0)] text-white duration-300;
+}
 /* button {
   border-radius: 8px;
   border: 1px solid transparent;

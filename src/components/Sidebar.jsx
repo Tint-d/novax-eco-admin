@@ -10,6 +10,7 @@ import {
 import { IoBagHandleSharp } from "../../node_modules/react-icons/io5";
 import logo from "../../src/assets/logo.jpg";
 import { sidebarStyle } from "./constants/defaultStyle";
+import { paths } from "../routes/paths";
 const Sidebar = () => {
   return (
     <div>
@@ -19,23 +20,23 @@ const Sidebar = () => {
       </div>
 
       <div className="flex flex-col gap-2  font-black text-gray-500">
-        <NavLink className="py-2 px-4 flex items-center gap-3 bg-[rgb(243,195,0)] text-white duration-300 mx-5 rounded-lg transition">
+        <NavLink to={paths.home} className={sidebarStyle}>
           <LuLayoutDashboard />
           Dashboard
         </NavLink>
-        <NavLink className={sidebarStyle}>
+        <NavLink to={paths.create_category} className={sidebarStyle}>
           <BsFillBarChartFill />
           Statiistics
         </NavLink>
-        <NavLink className={sidebarStyle}>
+        <NavLink to={paths.product} className={sidebarStyle}>
           <IoBagHandleSharp />
           Products
         </NavLink>
-        <NavLink className={sidebarStyle}>
+        <NavLink to={paths.customers} className={sidebarStyle}>
           <BsFillPeopleFill />
           Customer
         </NavLink>
-        <NavLink className={sidebarStyle}>
+        <NavLink to={paths.category_list} className={sidebarStyle}>
           <BsCardText />
           Messages
         </NavLink>
