@@ -1,4 +1,4 @@
-import { createStyles, Text, rem, RingProgress, Flex } from "@mantine/core";
+import { createStyles, rem, RingProgress, Flex } from "@mantine/core";
 import React from "react";
 
 const useStyles = createStyles((theme) => ({

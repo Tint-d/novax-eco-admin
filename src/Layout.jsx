@@ -3,8 +3,8 @@ import Sidebar from "./components/Sidebar";
 
 const Layout = ({ children }) => {
   return (
-    <div className="flex ">
-      <div className="w-[20%]">
+    <div className="flex w-[100vw]">
+      <div className="w-2/12">
         <Sidebar />
       </div>
       <div className="w-10/12 h-[100vh] overflow-scroll bg-gray-100">
