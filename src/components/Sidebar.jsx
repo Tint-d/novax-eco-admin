@@ -16,7 +16,7 @@ const Sidebar = () => {
     <div>
       <div className="flex items-center justify-between p-2 text-[rgb(243,195,0)] font-bold text-xl">
         <img className=" w-20" src={logo} alt="" />
-        <p>NovaX</p>
+        {/* <p>NovaX</p> */}
       </div>
 
       <div className="flex flex-col gap-2  font-black text-gray-500">
