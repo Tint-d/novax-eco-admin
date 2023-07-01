@@ -9,9 +9,10 @@ export default {
         "text-color": "#6b7280",
         "title-color": "#0f172a",
         "bg-card": "white",
+        "nav-color": "white",
       },
       fontSize: {
-        "title": "25px",
+        title: "25px",
       },
     },
     fontFamily: {
