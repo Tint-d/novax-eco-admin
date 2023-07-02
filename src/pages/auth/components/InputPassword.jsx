@@ -2,10 +2,12 @@ import { PasswordInput, Tooltip } from "@mantine/core";
 import { useFocusWithin } from "@mantine/hooks";
 import React, { useState } from "react";
 
-const InputPassword = ({ confirmation, form, label, placeholder }) => {
+const InputPassword = ({ confirmation, form, placeholder }) => {
   const { ref, focused } = useFocusWithin();
   const [opened, setOpened] = useState(false);
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(
+    confirmation ? form.values.password_confirmation : form.values.password
+  );
   const valid = value.trim().length >= 8;
   return (
     <>
@@ -20,7 +22,7 @@ const InputPassword = ({ confirmation, form, label, placeholder }) => {
       >
         <PasswordInput
           ref={ref}
-          label={confirmation ? " Confirm Password *" : "Password *"}
+          label={confirmation ? " Confirm Password " : "Password "}
           placeholder={placeholder ? placeholder : "Password"}
           required
           mt="sm"
@@ -33,9 +35,6 @@ const InputPassword = ({ confirmation, form, label, placeholder }) => {
               paddingBottom: 0,
               fontWeight: 400,
             },
-            // ["& .mantine-PasswordInput-visibilityToggle:hover:focus"]:{
-            //     backgroundColor:"transparent"
-            // }
           }}
           classNames={{
             label: "text-[#2E2A2A] px-5 text-base",
@@ -56,8 +55,8 @@ const InputPassword = ({ confirmation, form, label, placeholder }) => {
           }}
           onFocus={() => setOpened(true)}
           onBlur={() => setOpened(false)}
-        //   {...form.getInputProps("password")}
-        error={false}
+          //   {...form.getInputProps("password")}
+          error={false}
         />
       </Tooltip>
       {confirmation
@@ -67,7 +66,9 @@ const InputPassword = ({ confirmation, form, label, placeholder }) => {
             </p>
           )
         : form.errors.password && (
-            <p className="text-red-600 text-xs mt-1 px-5">{form.errors.password}</p>
+            <p className="text-red-600 text-xs mt-1 px-5">
+              {form.errors.password}
+            </p>
           )}
     </>
   );
