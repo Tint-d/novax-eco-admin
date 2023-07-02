@@ -31,8 +31,8 @@ const Login = () => {
   const dispatch = useDispatch();
   const form = useForm({
     initialValues: {
-      email: "tth@gmail.com",
-      password: "11223344",
+      email: "gex@gmail.com",
+      password: "wex12345678",
     },
     validate: {
       email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
