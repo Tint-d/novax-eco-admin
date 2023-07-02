@@ -18,5 +18,5 @@ export default {
       custom: ["Josefin Sans", "sans-serif"],
     },
   },
-  plugins: [],
+  plugins: [require('tailwind-scrollbar'),],
 };
