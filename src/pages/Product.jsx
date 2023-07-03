@@ -3,24 +3,49 @@ import { BsPlusSquare, BsThreeDots } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { Table, Input, Space, Pagination, Modal } from "antd";
 import Layout from "../Layout";
-import { useProductsListQuery } from "../services/api/product";
+import {
+  useDestoryProductMutation,
+  useProductsListQuery,
+} from "../services/api/product";
 import CreateProduct from "./product/CreateProduct";
 
 const Product = () => {
   const token = useSelector((state) => state.auth.token);
 
-  const [page,setPage] = useState(1)
+  const [page, setPage] = useState(1);
 
-  const { data, error } = useProductsListQuery({page, token});
-  console.log(data);
+  const { data } = useProductsListQuery({ page, token });
+
+  // console.log(data);
+
+  //For product destroy
+  const [destroyProducts,{error}] = useDestoryProductMutation();
+ console.log(error)
+
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+
+  const deleteHandler = async () => {
+    try {
+      const selectedIds = selectedRowKeys.map(
+        (key) => products.find((product) => product.key === key)?.id
+      );
+      console.log(selectedIds)
+      await destroyProducts({ids:selectedIds , token});
+    } catch (error) {
+      console.log("Error deleting products", error);
+    }
+  };
+
   //For Pagination
   const pagination = data?.meta;
   console.log(pagination);
+
   //For Products
-  const products = data?.data?.data.map((product, index) => ({
+  const products = data?.data?.data.map((product) => ({
     ...product,
-    key: index,
+    key: product.id,
   }));
+
   // State for column filters
   const [filters, setFilters] = useState({});
   const handleFilterChange = (column, value) => {
@@ -88,9 +113,11 @@ const Product = () => {
   const showModal = () => {
     setIsModalVisible(true);
   };
-  const handleOk = () => {
-    // Handle OK button click
+  const handleOk = async () => {
+    // Call createProduct mutation and pass productData
     setIsModalVisible(false);
+    setResetModal(true);
+    resetForm();
   };
   const handleCancel = () => {
     // Handle Cancel button click
@@ -104,13 +131,18 @@ const Product = () => {
       {/* top */}
       <div className="flex shadow-md justify-between px-10 items-center h-[7vh]">
         <button>All ()</button>
-        <button
-          className="flex gap-2 bg-[rgb(243,195,0)] text-white justify-center items-center py-2 px-5 rounded-md font-bold"
-          onClick={showModal}
-        >
-          ADD NEW
-          <BsPlusSquare />
-        </button>
+        <div onClick={deleteHandler} className="flex gap-5">
+          <button className="flex gap-2 bg-red-500 text-white justify-center items-center py-2 px-5 rounded-md font-bold">
+            DELETE
+          </button>
+          <button
+            className="flex gap-2 bg-[rgb(243,195,0)] text-white justify-center items-center py-2 px-5 rounded-md font-bold"
+            onClick={showModal}
+          >
+            ADD NEW
+            <BsPlusSquare />
+          </button>
+        </div>
       </div>
       {/* bottom */}
       <div className="px-5 my-5 flex flex-col items-center gap-10">
@@ -119,6 +151,15 @@ const Product = () => {
           dataSource={products}
           columns={columns}
           pagination={false}
+          rowSelection={{
+            selectedRowKeys,
+            onChange: (selectedRowKeys, selectedRows) => {
+              setSelectedRowKeys(selectedRowKeys);
+              const selectedIds = selectedRows.map((row) => row.id); // Access the original IDs
+              console.log(selectedRowKeys, selectedRows);
+              console.log(selectedIds); // Array of selected item IDs
+            },
+          }}
           onChange={(pagination, filters, sorter) => {
             setFilters(filters);
           }}
@@ -127,7 +168,7 @@ const Product = () => {
           current={page}
           total={pagination?.total}
           showTotal={(total, range) =>
-            `Showing ${range[1]} of ${total} entires`
+            `Showing ${range[1]} of ${total} entries`
           }
           hideOnSinglePage
           onChange={(page) => {

@@ -28,7 +28,18 @@ export const productsApi = createApi({
       }),
       invalidatesTags: ["Product"],
     }),
+    destoryProduct: builder.mutation({
+      query: ({ ids, token }) => ({
+        url: "/products/destroy",
+        method: "POST",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+        body: ids,
+      }),
+      invalidatesTags: ["Product"],
+    }),
   }),
 });
 
-export const { useProductsListQuery, useCreateProductMutation } = productsApi;
+export const { useProductsListQuery, useCreateProductMutation , useDestoryProductMutation } = productsApi;
