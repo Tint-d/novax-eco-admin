@@ -2,28 +2,40 @@ import { Modal } from "antd";
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useCreateProductMutation } from "../../services/api/product";
+import { useEditProductMutation } from "../../services/api/product";
 
-const CreateProduct = ({ handleCancel, isModalVisible }) => {
+const CreateProduct = ({
+  handleCancel,
+  isModalVisible,
+  editFormData,
+  isEdit,
+  editProduct,
+  handleOk,
+}) => {
   const token = useSelector((state) => state.auth.token);
   const [createProduct, { error }] = useCreateProductMutation();
-  console.log(error);
-  
+
   const initialProductData = {
     title: "",
     description: "",
     price: "",
     category_id: "",
     stock: "",
+    product_status: 0,
     product_photos: [],
   };
 
-  const [productData, setProductData] = useState(initialProductData);
+  const [productData, setProductData] = useState(null);
 
   useEffect(() => {
-    if (!isModalVisible) {
-      setProductData(initialProductData);
+    if (isModalVisible) {
+      if (isEdit && editFormData) {
+        setProductData(editFormData);
+      } else {
+        setProductData(initialProductData);
+      }
     }
-  }, [isModalVisible]);
+  }, [isModalVisible, isEdit, editFormData]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -44,31 +56,55 @@ const CreateProduct = ({ handleCancel, isModalVisible }) => {
     }));
   };
 
+  //For edit product
+  const editHandler = async (id, formDataWithoutId, token) => {
+    console.log(formDataWithoutId);
+    try {
+      await editProduct({ id, formData: formDataWithoutId, token });
+    } catch (error) {
+      console.log("Error editing product", error);
+    }
+  };
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(productData);
-    const Fdata = await createProduct({ formData: productData, token });
-    handleCancel();
-    setProductData(initialProductData);
+    if (productData) {
+      if (isEdit) {
+        try {
+          const { id, ...formDataWithoutId } = productData;
+          formDataWithoutId.product_status = 0;
+          editHandler(id, formDataWithoutId, token);
+          handleOk();
+          setProductData(initialProductData);
+        } catch (error) {
+          console.log("Error editing product", error);
+        }
+      } else {
+        try {
+          await createProduct({ formData: productData, token });
+          handleCancel();
+          setProductData(initialProductData);
+        } catch (error) {
+          console.log("Error creating product", error);
+        }
+      }
+    }
   };
-
   return (
     <Modal
       title="Add New Product"
       open={isModalVisible}
       onCancel={handleCancel}
       footer={[
-        <div className="flex gap-5 justify-end">
+        <div className="flex gap-5 justify-end" key="footer">
           <button
             className="border py-2 px-3 rounded-md font-bold border-red-500 hover:bg-red-500 hover:text-white text-red-500 duration-300 transition"
-            key="back"
             onClick={handleCancel}
           >
             Cancel
           </button>
           <button
             className="py-2 px-3 rounded-md font-bold text-white bg-yellow-500 hover:bg-yellow-400 duration-300 transition"
-            key="submit"
             onClick={handleSubmit}
           >
             Submit
@@ -84,7 +120,7 @@ const CreateProduct = ({ handleCancel, isModalVisible }) => {
             type="text"
             id="title"
             name="title"
-            value={productData.title}
+            value={productData?.title}
             onChange={handleInputChange}
             required
           />
@@ -95,7 +131,7 @@ const CreateProduct = ({ handleCancel, isModalVisible }) => {
             className="border border-slate-400 rounded-md outline-none py-2 px-2"
             id="description"
             name="description"
-            value={productData.description}
+            value={productData?.description}
             onChange={handleInputChange}
             required
           ></textarea>
@@ -108,7 +144,7 @@ const CreateProduct = ({ handleCancel, isModalVisible }) => {
             id="price"
             name="price"
             step="0.01"
-            value={productData.price}
+            value={productData?.price}
             onChange={handleInputChange}
             required
           />
@@ -120,7 +156,7 @@ const CreateProduct = ({ handleCancel, isModalVisible }) => {
             type="number"
             id="category_id"
             name="category_id"
-            value={productData.category_id}
+            value={productData?.category_id}
             onChange={handleInputChange}
             required
           />
@@ -132,7 +168,7 @@ const CreateProduct = ({ handleCancel, isModalVisible }) => {
             type="number"
             id="stock"
             name="stock"
-            value={productData.stock}
+            value={productData?.stock}
             onChange={handleInputChange}
             required
           />

@@ -35,11 +35,27 @@ export const productsApi = createApi({
         headers: {
           authorization: `Bearer ${token}`,
         },
-        body: ids,
+        body: { ids },
+      }),
+      invalidatesTags: ["Product"],
+    }),
+    editProduct: builder.mutation({
+      query: ({ id, formData, token }) => ({
+        url: `/products/store/${id}`,
+        method: "PUT",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+        body: formData, // Include the formData in the request body
       }),
       invalidatesTags: ["Product"],
     }),
   }),
 });
 
-export const { useProductsListQuery, useCreateProductMutation , useDestoryProductMutation } = productsApi;
+export const {
+  useProductsListQuery,
+  useCreateProductMutation,
+  useDestoryProductMutation,
+  useEditProductMutation,
+} = productsApi;
