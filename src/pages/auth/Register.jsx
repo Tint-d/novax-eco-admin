@@ -28,6 +28,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 const Register = () => {
   const [registerUser, { error, isLoading }] = useRegisterUserMutation();
+  console.log(registerUser);
   const navigate = useNavigate();
   console.log("error", isLoading);
   const form = useForm({
@@ -49,16 +50,15 @@ const Register = () => {
   });
 
   const onSubmitHandler = async (values) => {
-    const { data,error } = await registerUser(values);
-    console.log(data,error);
+    const { data, error } = await registerUser(values);
+    console.log(data, error);
 
     if (data?.success) {
       toast.success(data?.message);
-      setTimeout(()=>{
+      setTimeout(() => {
         navigate(paths.login);
-      },2000)
-     
-    } else if(error){
+      }, 2000);
+    } else if (error) {
       toast.error(error?.data?.message);
     }
   };
@@ -67,9 +67,7 @@ const Register = () => {
     <AuthLayout>
       <Toaster position="bottom-center" />
       <Container size={420} my={40}>
-        <form
-          onSubmit={form.onSubmit((values) => onSubmitHandler(values))}
-        >
+        <form onSubmit={form.onSubmit((values) => onSubmitHandler(values))}>
           <Paper
             withBorder
             radius="md"

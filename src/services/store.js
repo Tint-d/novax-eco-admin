@@ -14,9 +14,9 @@ const persistConfig = {
 };
 
 const reducer = combineReducers({
-  dashboar: dashboardReducer,
+  dashboard: dashboardReducer,
   [authApi.reducerPath]: authApi.reducer,
-  [productsApi.reducerPath]:productsApi.reducer,
+  [productsApi.reducerPath]: productsApi.reducer,
   auth: authReducer,
 });
 const persistedReducer = persistReducer(persistConfig, reducer);
@@ -28,5 +28,5 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: ["persist/PERSIST"],
       },
-    }).concat(authApi.middleware,productsApi.middleware),
+    }).concat(authApi.middleware, productsApi.middleware),
 });

@@ -6,7 +6,7 @@ import Fallback from "../components/Fallback";
 const Home = lazy(() => import("../pages/Home"));
 const Login = lazy(() => import("../pages/auth/Login"));
 const Register = lazy(() => import("../pages/auth/Register"));
-const Product = lazy(() => import("../pages/Product"));
+// const Product = lazy(() => import("../pages/Product"));
 const CreateCategory = lazy(() => import("../pages/category/CreateCategory"));
 const CategoryList = lazy(() => import("../pages/category/CategoryList"));
 const Customer = lazy(() => import("../pages/Customer"));
@@ -39,17 +39,17 @@ const Routes = () => {
         </Suspense>
       ),
     },
-    
-    {
-      path: paths.product,
-      element: (
-        <Suspense fallback={<Fallback />}>
-          <Guard>
-            <Product />
-          </Guard>
-        </Suspense>
-      ),
-    },
+
+    // {
+    //   path: paths.product,
+    //   element: (
+    //     <Suspense fallback={<Fallback />}>
+    //       <Guard>
+    //         <Product />
+    //       </Guard>
+    //     </Suspense>
+    //   ),
+    // },
     {
       path: paths.create_category,
       element: (
